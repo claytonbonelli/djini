@@ -46,8 +46,8 @@
 
     # Use as follows:
     
-    date = Data.load('file.ini')
-    print (data.name, data.age)
+    data = Data.load('file.ini')
+    print(data.name, data.age)
 
     # Or
     
@@ -55,11 +55,11 @@
     os.environ[Model.ENV_CONFIGURATION] = 'file.ini'
     
     names = NamesSession.load()
-    print (names.first_name, names.last_name)
+    print(names.first_name, names.last_name)
     
     # Or
     
     models.ModelsInitializer.set_filename('file.ini')
-    date = Data.load()
-    print (data.name, data.age)    
+    data = Data.load()
+    print(data.name, data.age)    
 ```
