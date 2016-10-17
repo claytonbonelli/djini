@@ -4,6 +4,9 @@
     
     The current implementation was inspired by the models defined by Django web framework
     
+# Fields
+    A field is an object that maps to key/value pairs in an ini file.
+    
 # Model
     A model is an object that maps to sessions in an ini file.
     A model name is the name of a session formed of key/value pairs defined in a configuration file, 
@@ -39,18 +42,24 @@
         last_name = fields.StringField (name = "name2")
 
         class Meta:
-            session_name = "names session"
+            session_name = "Names session"
 
-    # And the use can be made as follows:
+    # Use as follows:
     
     date = Data.load('file.ini')
     print (data.name, data.age)
 
-    or
+    # Or
     
     import os
     os.environ[Model.ENV_CONFIGURATION] = 'file.ini'
     
     names = NamesSession.load()
     print (names.first_name, names.last_name)
+    
+    # Or
+    
+    models.ModelsInitializer.set_filename('file.ini')
+    date = Data.load()
+    print (data.name, data.age)    
 ```
