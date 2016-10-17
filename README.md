@@ -23,7 +23,7 @@
 
     The classes may be mapped as follows:
 
-
+    ```
     class Data (models.Model):
         name = fields.StringField ()
         fields.IntegerField age = ()
@@ -35,7 +35,7 @@
 
         class Meta:
             session_name = "names session"
-
+    ```
 
     And the use can be made as follows:
     
