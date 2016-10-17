@@ -1,7 +1,6 @@
 # Djini
-    A representation object-oriented of sessions of an ini file where the 
-    session name will be represented by a new Python class and 
-    the key / session value will be the attributes of this new class.
+    A representation object-oriented of sessions of an ini file where the session name will be represented 
+    by a new Python class and the key / session value will be the attributes of this new class.
     
     The current implementation was inspired by the models defined by Django web framework
     
