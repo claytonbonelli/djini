@@ -4,7 +4,7 @@
     
     The current implementation was inspired by the models defined by Django web framework.
     
-# Fields
+# Field
     A field is an object that maps to key/value pairs in an ini file.
     
 # Model
