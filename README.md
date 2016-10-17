@@ -33,13 +33,13 @@
     from djini.models import models, fields
     
     class Data (models.Model):
-        name = fields.StringField ()
-        fields.IntegerField age = ()
+        name = fields.StringField()
+        age = fields.IntegerField()
 
 
     class NamesSession (models.Model):
-        first_name = fields.StringField (name = "name1")
-        last_name = fields.StringField (name = "name2")
+        first_name = fields.StringField(name = "name1")
+        last_name = fields.StringField(name = "name2")
 
         class Meta:
             session_name = "Names session"
