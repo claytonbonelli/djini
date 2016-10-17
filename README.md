@@ -60,6 +60,7 @@
     # Or
     
     models.ModelsInitializer.set_filename('file.ini')
+    
     data = Data.load()
     print(data.name, data.age)    
 ```
