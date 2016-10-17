@@ -12,6 +12,7 @@
     data.ini
     ---------
 
+'''bash
     [Data]
     name = joe
     age = 20
@@ -19,11 +20,14 @@
     [Names session]
     name1 = klaus
     name2 = peter
+'''
+
+'''python
+
+    # The classes may be mapped as follows:
+
+    from djini.models import models, fields
     
-
-    The classes may be mapped as follows:
-
-```python
     class Data (models.Model):
         name = fields.StringField ()
         fields.IntegerField age = ()
@@ -35,9 +39,8 @@
 
         class Meta:
             session_name = "names session"
-```
 
-    And the use can be made as follows:
+    # And the use can be made as follows:
     
     date = Data.load('file.ini')
     print (data.name, data.age)
@@ -49,3 +52,4 @@
     
     names = NamesSession.load()
     print (names.first_name, names.last_name)
+'''
