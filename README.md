@@ -12,7 +12,7 @@
     data.ini
     ---------
 
-'''bash
+```bash
     [Data]
     name = joe
     age = 20
@@ -20,9 +20,9 @@
     [Names session]
     name1 = klaus
     name2 = peter
-'''
+```
 
-'''python
+```python
 
     # The classes may be mapped as follows:
 
@@ -52,4 +52,4 @@
     
     names = NamesSession.load()
     print (names.first_name, names.last_name)
-'''
+```
