@@ -9,7 +9,8 @@
     A model name is the name of a session formed of key/value pairs defined in a configuration file, 
     
 # Example    
-    A file named 'data.ini':
+    data.ini
+    ---------
 
     [Data]
     name = joe
@@ -18,6 +19,7 @@
     [Names session]
     name1 = klaus
     name2 = peter
+    
 
     The classes may be mapped as follows:
 
@@ -35,7 +37,7 @@
             session_name = "names session"
 
 
-    And use can be made as follows:
+    And the use can be made as follows:
     
     date = Data.load('file.ini')
     print (data.name, data.age)
