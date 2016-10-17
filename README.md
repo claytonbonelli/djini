@@ -1,13 +1,15 @@
 # Djini
     A representation object-oriented of sessions of an ini file where the session name will be represented 
-    by a new Python class and the key / session value will be the attributes of this new class.
+    by a new Python class and the key/value will be the attributes of this new class.
     
     The current implementation was inspired by the models defined by Django web framework
     
 # Model
     A model is an object that maps to sessions in an ini file.
-    A model name is the name of a session formed of key / value pairs defined in a 
-    configuration file, for example in a file named 'data.ini':
+    A model name is the name of a session formed of key/value pairs defined in a configuration file, 
+    
+# Example    
+    A file named 'data.ini':
 
     [Data]
     name = joe
