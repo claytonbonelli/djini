@@ -9,10 +9,11 @@
     A model name is the name of a session formed of key/value pairs defined in a configuration file, 
     
 # Example    
-    data.ini
-    ---------
-
 ```bash
+    ******** 
+    data.ini
+    ********
+
     [Data]
     name = joe
     age = 20
