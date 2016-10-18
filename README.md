@@ -51,7 +51,7 @@ print(data.name, data.age)
 # Or
     
 import os
-os.environ[Model.ENV_CONFIGURATION] = 'file.ini'
+os.environ[models.Model.ENV_CONFIGURATION] = 'file.ini'
     
 names = NamesSession.load()
 print(names.first_name, names.last_name)
