@@ -2,7 +2,7 @@
 A representation object-oriented of sessions of an ini file where the session name will be represented 
 by a new Python class and the key/value will be the attributes of this new class.
     
-**The current implementation was inspired by the models defined by Django web framework**.
+*The current implementation was inspired by the models defined by Django web framework*.
     
 ## Field
 A field is an object that maps to key/value pairs in an ini file.
