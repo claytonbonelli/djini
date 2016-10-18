@@ -4,14 +4,14 @@ by a new Python class and the key/value will be the attributes of this new class
     
 *The current implementation was inspired by the models defined by Django web framework*.
     
-## Field
+### Field
 A field is an object that maps to key/value pairs in an ini file.
     
-## Model
+### Model
 A model is an object that maps to sessions in an ini file.
 A model name is the name of a session formed of key/value pairs defined in a configuration file.
     
-## Example    
+### Example    
 ```bash
     ******** 
     data.ini
