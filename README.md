@@ -61,5 +61,8 @@ print(names.first_name, names.last_name)
 models.ModelsInitializer.set_filename('file.ini')
    
 data = Data.load()
-print(data.name, data.age)    
+print(data.name, data.age)
+
+data.name = "john"
+data.save()
 ```
