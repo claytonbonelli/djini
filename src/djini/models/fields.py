@@ -49,3 +49,15 @@ class IntegerField(Field):
     
     def _target_class(self):
         return int
+
+
+#=======================================================================================================================
+# FloatField
+#=======================================================================================================================
+class FloatField(Field):
+    """
+    Represent an float field value.
+    """
+    
+    def _target_class(self):
+        return float

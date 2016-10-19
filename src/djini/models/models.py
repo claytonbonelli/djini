@@ -8,7 +8,7 @@ Created on 16 de out de 2016
 @version: 0.1.0
 '''
 
-from configparser import ConfigParser
+from configparser import ConfigParser, RawConfigParser
 import os
 
 
@@ -61,13 +61,49 @@ class Model(object):
     ENV_CONFIGURATION = "INI_FILENAME"
     
     __META_CLASSNAME = "Meta"
-    
-    def save(self):
-        """
-        Saves the current object attributes in the file. 
-        """
-        raise NotImplemented("Yet")
 
+    def save(self, filename=None, use_attribute_names=True):
+        """
+        Saves the current object in the file.
+         
+        @param filename: The file name that will be used to save the session and attributes. 
+        If left empty the file name will be searched in the environment variable Model.ENV_CONFIGURATION.
+         
+        @param use_attribute_names: A True value indicates that the keys are the names of the attributes defined 
+        in the current class. A False value indicates that  the keys are the names defined in the file. 
+        """
+        cls = self.__class__
+        
+        filename = cls.__get_filename(filename)
+        
+        # Recreate the session
+        config_parser = cls.__read(filename, klass=RawConfigParser)
+        session_name = cls.__get_session_name()
+        
+        config_parser.remove_section(session_name)
+        config_parser.add_section(session_name)
+        
+        self.__insert_attributes(config_parser, session_name, use_attribute_names)
+        self.__save_file(filename, config_parser) 
+
+    def delete(self, filename=None):
+        """
+        Remove the current object from file.
+         
+        @param filename: The file name that will be used to remove the session. If left empty the file name 
+        will be searched in the environment variable Model.ENV_CONFIGURATION.
+        """
+        cls = self.__class__
+
+        filename = cls.__get_filename(filename)
+        
+        # Remove the session
+        config_parser = cls.__read(filename, klass=RawConfigParser)
+        session_name = cls.__get_session_name()
+        
+        config_parser.remove_section(session_name)
+        self.__save_file(filename, config_parser) 
+    
     @classmethod
     def load(cls, filename=None):
         """
@@ -77,11 +113,7 @@ class Model(object):
         @param filename: The file name that will be used to read the file session. If left empty the file name 
         will be searched in the environment variable Model.ENV_CONFIGURATION. 
         """
-        filename = filename or os.environ.get(cls.ENV_CONFIGURATION)
-        
-        if not filename:
-            raise ValueError("filename not found")
-        
+        filename = cls.__get_filename(filename)
         return cls.__load_model_attributes(filename, cls(), cls.get_attributes())
     
     @classmethod
@@ -106,7 +138,17 @@ class Model(object):
             
         attributes = self.get_attributes()
         return {get_key(attribute): getattr(self, attribute) for attribute in attributes}
-        
+
+    def __insert_attributes(self, config_parser, session_name, use_attribute_names=True):
+        data = self.to_dict(use_attribute_names)
+        for key, value in data.items():
+            config_parser.set(session_name, key, value)
+
+    def __save_file(self, filename, config_parser):
+        # Save the file    
+        with open(filename, 'wt', encoding='utf8') as file:
+            config_parser.write(file)    
+                
     @classmethod
     def __load_model_attributes(cls, filename, model, attributes):
         config = cls.__read(filename)
@@ -127,10 +169,21 @@ class Model(object):
             return cls.__name__
 
     @classmethod
-    def __read(cls, filename):
-        config = ConfigParser()
+    def __read(cls, filename, klass=ConfigParser):
+        config = klass()
         config.read(filename)
         return config
+    
+    @classmethod
+    def __get_filename(cls, filename):
+        filename = filename or os.environ.get(cls.ENV_CONFIGURATION)
+                
+        if not filename:
+            raise ValueError("filename undefined")
+
+        # Ensures that the file is saved in the environment variable
+        ModelsInitializer.set_filename(filename)
+        return filename
 
 
 #=======================================================================================================================
