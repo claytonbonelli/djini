@@ -5,7 +5,7 @@
 Created on 16 de out de 2016
 
 @author: CLayton Bonelli
-@version: 1.0.0
+@version: 1.0.1
 '''
 
 from configparser import ConfigParser, RawConfigParser
@@ -17,7 +17,7 @@ import os
 #=======================================================================================================================
 class Model(object):
     """
-    A model is the name of a session formed of key / value pairs defined in a configuration file, 
+    A model is the representation of a section formed of key / value pairs defined in a configuration file, 
     for example in a file named 'data.ini':
 
     [Data]
@@ -41,7 +41,7 @@ class Model(object):
         last_name = fields.StringField (name = "name2")
 
         class Meta:
-            session_name = "names session"
+            section_name = "names session"
 
 
     And use can be made as follows:
@@ -68,7 +68,7 @@ class Model(object):
         """
         Saves the current object in the file.
          
-        @param filename: The file name that will be used to save the session and attributes. 
+        @param filename: The file name that will be used to save the section and attributes. 
         If left empty the file name will be searched in the environment variable Model.ENV_CONFIGURATION.
          
         @param use_attribute_names: A True value indicates that the keys are the names of the attributes defined 
@@ -78,41 +78,41 @@ class Model(object):
         
         filename = cls.__get_filename(filename)
         
-        # Recreate the session
+        # Recreate the section
         config_parser = cls.__read(filename, klass=RawConfigParser)
-        session_name = cls.__get_session_name()
+        section_name = cls.__get_section_name()
         
-        config_parser.remove_section(session_name)
-        config_parser.add_section(session_name)
+        config_parser.remove_section(section_name)
+        config_parser.add_section(section_name)
         
-        self.__insert_attributes(config_parser, session_name, use_attribute_names)
+        self.__insert_attributes(config_parser, section_name, use_attribute_names)
         self.__save_file(filename, config_parser) 
 
     def delete(self, filename=None):
         """
         Remove the current object from file.
          
-        @param filename: The file name that will be used to remove the session. If left empty the file name 
+        @param filename: The file name that will be used to remove the section. If left empty the file name 
         will be searched in the environment variable Model.ENV_CONFIGURATION.
         """
         cls = self.__class__
 
         filename = cls.__get_filename(filename)
         
-        # Remove the session
+        # Remove the section
         config_parser = cls.__read(filename, klass=RawConfigParser)
-        session_name = cls.__get_session_name()
+        section_name = cls.__get_section_name()
         
-        config_parser.remove_section(session_name)
+        config_parser.remove_section(section_name)
         self.__save_file(filename, config_parser) 
     
     @classmethod
     def load(cls, filename=None):
         """
-        Read the session which the current class is associated and stores into attributes the information 
+        Read the section which the current class is associated and stores into attributes the information 
         found in the file.
         
-        @param filename: The file name that will be used to read the file session. If left empty the file name 
+        @param filename: The file name that will be used to read the file section. If left empty the file name 
         will be searched in the environment variable Model.ENV_CONFIGURATION. 
         """
         filename = cls.__get_filename(filename)
@@ -141,10 +141,10 @@ class Model(object):
         attributes = self.get_attributes()
         return {get_key(attribute): getattr(self, attribute) for attribute in attributes}
 
-    def __insert_attributes(self, config_parser, session_name, use_attribute_names=True):
+    def __insert_attributes(self, config_parser, section_name, use_attribute_names=True):
         data = self.to_dict(use_attribute_names)
         for key, value in data.items():
-            config_parser.set(session_name, key, value)
+            config_parser.set(section_name, key, value)
 
     def __save_file(self, filename, config_parser):
         # Save the file    
@@ -154,19 +154,19 @@ class Model(object):
     @classmethod
     def __load_model_attributes(cls, filename, model, attributes):
         config = cls.__read(filename)
-        session_name = cls.__get_session_name()
+        section_name = cls.__get_section_name()
         
         for attribute in attributes:
             field = getattr(model, attribute)
-            value = config.get(session_name, field.name or attribute)
+            value = config.get(section_name, field.name or attribute)
             setattr(model, attribute, field._target_class()(value))
         
         return model
         
     @classmethod
-    def __get_session_name(cls):
-        if hasattr(cls, cls.__META_CLASSNAME) and hasattr(cls.Meta, "session_name"):
-            return cls.Meta.session_name
+    def __get_section_name(cls):
+        if hasattr(cls, cls.__META_CLASSNAME) and hasattr(cls.Meta, "section_name"):
+            return cls.Meta.section_name
         else:    
             return cls.__name__
 
