@@ -5,7 +5,7 @@
 Created on 16 de out de 2016
 
 @author: CLayton Bonelli
-@version: 0.2.0
+@version: 1.0.0
 '''
 
 from configparser import ConfigParser, RawConfigParser
@@ -56,10 +56,12 @@ class Model(object):
     
     names = NamesSession.load()
     print (names.first_name, names.last_name)
-    """    
+    """
+    
+    _filename = None
 
     ENV_CONFIGURATION = "INI_FILENAME"
-    
+
     __META_CLASSNAME = "Meta"
 
     def save(self, filename=None, use_attribute_names=True):
@@ -176,13 +178,13 @@ class Model(object):
     
     @classmethod
     def __get_filename(cls, filename):
-        filename = filename or os.environ.get(cls.ENV_CONFIGURATION)
+        filename = filename or cls._filename or os.environ.get(cls.ENV_CONFIGURATION)
                 
         if not filename:
             raise ValueError("filename undefined")
 
-        # Ensures that the file is saved in the environment variable
-        ModelsInitializer.set_filename(filename)
+        # Ensures that the file is saved in the class
+        cls._filename = filename
         return filename
 
 
