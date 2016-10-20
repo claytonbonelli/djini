@@ -1,5 +1,5 @@
 # Djini
-A representation object-oriented of sessions of an ini file where the session name will be represented 
+A representation object-oriented of sections of an ini file where the section name will be represented 
 by a new Python class and the key/value will be the attributes of this new class.
     
 *The current implementation was inspired by the models defined by Django web framework*.
@@ -8,8 +8,8 @@ by a new Python class and the key/value will be the attributes of this new class
 A field is an object that maps to key/value pairs in an ini file.
     
 ### Model
-A model is an object that maps to sessions in an ini file.
-A model name is the name of a session formed of key/value pairs defined in a configuration file.
+A model is an object that maps to sections in an ini file.
+A model name is the name of a section formed of key/value pairs defined in a configuration file.
 A model consists of one or more fields.
     
 ### Example    
@@ -41,7 +41,7 @@ class NamesSession (models.Model):
     last_name = fields.StringField(name = "name2")
 
     class Meta:
-        session_name = "Names session"
+        section_name = "Names session"
 
 # Use as follows:
     
