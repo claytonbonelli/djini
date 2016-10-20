@@ -9,7 +9,7 @@ A field is an object that maps to key/value pairs in an ini file.
     
 ### Model
 A model is an object that maps to sections in an ini file.
-A model name is the name of a section formed of key/value pairs defined in a configuration file.
+A model is the representation of a section formed of key/value pairs defined in a configuration file.
 A model consists of one or more fields.
     
 ### Example    
