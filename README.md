@@ -1,4 +1,7 @@
 # Djini
+
+###### By Clayton Boneli
+
 A representation object-oriented of sections of an ini file where the section name will be represented 
 by a new Python class and the key/value will be the attributes of this new class.
     
